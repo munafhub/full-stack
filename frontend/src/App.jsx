@@ -21,7 +21,7 @@ const App = () => {
       setError('');
     } catch (err) {
       setError(err.message);
-      if (err.message.includes('Authentication')) logout();
+      if (err.status === 401 || /authentication|token/i.test(err.message)) logout();
     } finally {
       setLoading(false);
     }

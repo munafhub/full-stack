@@ -13,7 +13,7 @@ npm test
 npm run dev
 ```
 
-API: `https://full-stack-production-0769.up.railway.app`
+API: `https://full-stack-production-eb7e.up.railway.app` (all routes work with or without the `/api` prefix)
 
 The reset command creates an admin account:
 
@@ -51,3 +51,21 @@ npm test
 ```
 
 The test suite covers registration, login, invalid credentials, missing JWTs, protected CRUD, validation errors, 404 errors, RBAC and task ownership. `tests/integration.test.js` also checks the complete happy path.
+
+## Deploying on Railway
+
+Set these in Railway > your service > Variables:
+
+| Variable | Value |
+| --- | --- |
+| `JWT_SECRET` | a long random string (required) |
+| `FRONTEND_ORIGIN` | `https://full-stack-teal-seven.vercel.app` (comma separate for more than one) |
+| `SQLITE_PATH` | `/data/tasks.sqlite` |
+| `ADMIN_EMAIL` / `ADMIN_PASSWORD` | optional, creates an admin account on startup |
+
+**Keep your data:** Railway's disk is wiped on every redeploy. Add a **Volume** to the service and mount it at `/data`
+so `SQLITE_PATH=/data/tasks.sqlite` survives redeploys. Alternative: add a Railway PostgreSQL database, run
+`npm install pg pg-hstore` in `backend/`, commit, and set `DATABASE_URL` (and `DATABASE_SSL=true` if needed).
+
+Health check: `GET /api/health` -> `{"status":"ok"}`.
+

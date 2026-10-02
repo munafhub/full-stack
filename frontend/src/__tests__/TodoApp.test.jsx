@@ -30,7 +30,7 @@ const loginUser = async () => {
   await user.type(screen.getByPlaceholderText('Email'), 'a@example.com');
   await user.type(screen.getByPlaceholderText('Password (6+ characters)'), 'secret123');
   await user.click(screen.getByRole('button', { name: 'Login' }));
-  await screen.findByText('Logged in as');
+  await screen.findByText(/Logged in as/);
 
   return user;
 };

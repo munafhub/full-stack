@@ -42,7 +42,7 @@ npm run lint
 npm run dev
 ```
 
-Backend: `https://full-stack-production-0769.up.railway.app`
+Backend: `https://full-stack-production-eb7e.up.railway.app`
 
 The reset command creates an admin account:
 
@@ -83,3 +83,19 @@ Authorization: Bearer <JWT>
 ```
 
 A request without a valid token should return `401`. A normal user requesting `GET /api/users` should return `403`.
+
+## Deployment
+
+- **Backend (Railway)**, root directory `backend`. Variables: `JWT_SECRET`, `FRONTEND_ORIGIN`, `SQLITE_PATH=/data/tasks.sqlite`
+  plus a Volume mounted at `/data` (see `backend/README.md`).
+- **Frontend (Vercel)**, root directory `frontend`. Variable: `VITE_API_URL=https://full-stack-production-eb7e.up.railway.app`.
+  Vite reads this at build time, so **redeploy** after changing it. The `/api` suffix is added automatically.
+- Live URLs: frontend `https://full-stack-teal-seven.vercel.app`, backend `https://full-stack-production-eb7e.up.railway.app`.
+
+## Troubleshooting
+
+- `Route POST /auth/login not found`: the frontend was calling the backend without `/api`. Fixed in `frontend/src/api.js`
+  (adds `/api` automatically) and the backend now also answers without the prefix.
+- Browser says CORS / "Cannot reach the server": make sure `FRONTEND_ORIGIN` matches your Vercel URL exactly.
+- Users or tasks disappear after a redeploy: attach a Railway Volume (see above) or use PostgreSQL.
+
