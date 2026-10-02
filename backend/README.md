@@ -13,7 +13,7 @@ npm test
 npm run dev
 ```
 
-API: `http://localhost:4000`
+API: `https://full-stack-production-0769.up.railway.app`
 
 The reset command creates an admin account:
 

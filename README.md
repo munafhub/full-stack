@@ -42,7 +42,7 @@ npm run lint
 npm run dev
 ```
 
-Backend: `http://localhost:4000`
+Backend: `https://full-stack-production-0769.up.railway.app`
 
 The reset command creates an admin account:
 

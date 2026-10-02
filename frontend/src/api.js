@@ -1,4 +1,4 @@
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000/api';
+const API_URL = import.meta.env.VITE_API_URL || 'https://full-stack-production-0769.up.railway.app/api';
 
 async function request(path, options = {}) {
   const token = localStorage.getItem('jwt');
